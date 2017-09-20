@@ -104,11 +104,23 @@
     [self searchBarSearchButtonClicked:_searchBar];
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [_searchBar resignFirstResponder];
+}
+
+
+
+
 - (IBAction)deleteHistory:(UIButton *)sender
 {
     [_history removeObjectAtIndex:sender.tag];
     NSLog(@"tag===%li",(long)sender.tag);
     [_searchHistoryTableView reloadData];
+}
+- (IBAction)hideKeyboard:(UIButton *)sender
+{
+    [_searchBar resignFirstResponder];
 }
 
 @end

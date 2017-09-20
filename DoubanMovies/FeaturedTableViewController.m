@@ -56,7 +56,7 @@
 {
     if (_hasQuery) {
         NSLog(@"===>Search!____count=%li&start=%li",_count,_start);
-        return [NSString stringWithFormat:@"%@&count=%li&start=%li",_url,_count,_start];
+        return [[NSString stringWithFormat:@"%@&count=%li&start=%li",_url,_count,_start] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     }
     return [NSString stringWithFormat:@"%@?count=%li&start=%li",_url,_count,_start];
 }
@@ -92,7 +92,8 @@
 
 - (void)featuredRefreshing
 {
-    NSLog(@"Refreshing!");
+    NSLog(@"Refreshing!================>%@",[self requestURL]);
+    
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager GET:[self requestURL]
       parameters:nil
@@ -111,7 +112,8 @@
              [self.tableView reloadData];
          }
          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-             NSLog(@"%@",error);
+             
+             NSLog(@"ERROR===>>>%@",error);
          }
      ];
     
